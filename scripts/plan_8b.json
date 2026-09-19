@@ -1,0 +1,40 @@
+{
+  "engine": "vllm-ascend 0.23.0",
+  "num_prompts": {"1": 6, "16": 48, "64": 128},
+  "profiles": [
+    {"code": "P1", "input": 512,  "output": 512},
+    {"code": "P2", "input": 2048, "output": 128},
+    {"code": "P3", "input": 256,  "output": 1024}
+  ],
+  "configs": [
+    {"name": "tp1", "model": "Qwen3-8B", "precision": "bf16",
+     "model_dir": "/data/models/Qwen3-8B", "outdir": "/data/results/Qwen3-8B",
+     "tp": 1, "dp": 1, "max_model_len": 8192, "port": 8000,
+     "profiles": ["P1", "P2", "P3"], "concurrency": [1, 16, 64],
+     "comment": "базовая конфигурация: одна карта, полная сетка профилей"},
+
+    {"name": "tp2", "model": "Qwen3-8B", "precision": "bf16",
+     "model_dir": "/data/models/Qwen3-8B", "outdir": "/data/results/Qwen3-8B",
+     "tp": 2, "dp": 1, "max_model_len": 8192, "port": 8000,
+     "profiles": ["P1"], "concurrency": [1, 16, 64],
+     "comment": "E1: масштабирование по картам, TP=2"},
+
+    {"name": "tp4", "model": "Qwen3-8B", "precision": "bf16",
+     "model_dir": "/data/models/Qwen3-8B", "outdir": "/data/results/Qwen3-8B",
+     "tp": 4, "dp": 1, "max_model_len": 8192, "port": 8000,
+     "profiles": ["P1"], "concurrency": [1, 16, 64],
+     "comment": "E1: масштабирование по картам, TP=4"},
+
+    {"name": "dp2", "model": "Qwen3-8B", "precision": "bf16",
+     "model_dir": "/data/models/Qwen3-8B", "outdir": "/data/results/Qwen3-8B",
+     "tp": 1, "dp": 2, "max_model_len": 8192, "port": 8000,
+     "profiles": ["P1"], "concurrency": [1, 16, 64],
+     "comment": "две независимые реплики модели на 2 картах"},
+
+    {"name": "dp4", "model": "Qwen3-8B", "precision": "bf16",
+     "model_dir": "/data/models/Qwen3-8B", "outdir": "/data/results/Qwen3-8B",
+     "tp": 1, "dp": 4, "max_model_len": 8192, "port": 8000,
+     "profiles": ["P1", "P2", "P3"], "concurrency": [1, 16, 64],
+     "comment": "четыре реплики: конфигурация под максимальную пропускную способность"}
+  ]
+}

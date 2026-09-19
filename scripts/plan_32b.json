@@ -1,0 +1,28 @@
+{
+  "engine": "vllm-ascend 0.23.0",
+  "num_prompts": {"1": 6, "16": 48, "64": 128},
+  "profiles": [
+    {"code": "P1", "input": 512,  "output": 512},
+    {"code": "P2", "input": 2048, "output": 128},
+    {"code": "P3", "input": 256,  "output": 1024}
+  ],
+  "configs": [
+    {"name": "tp2", "model": "Qwen3-32B", "precision": "bf16",
+     "model_dir": "/data/models/Qwen3-32B", "outdir": "/data/results/Qwen3-32B",
+     "tp": 2, "dp": 1, "max_model_len": 8192, "port": 8000,
+     "profiles": ["P1", "P2", "P3"], "concurrency": [1, 16, 64],
+     "comment": "минимальный TP: 62 ГБ весов не помещаются на одну карту"},
+
+    {"name": "tp4", "model": "Qwen3-32B", "precision": "bf16",
+     "model_dir": "/data/models/Qwen3-32B", "outdir": "/data/results/Qwen3-32B",
+     "tp": 4, "dp": 1, "max_model_len": 8192, "port": 8000,
+     "profiles": ["P1"], "concurrency": [1, 16, 64],
+     "comment": "E1: масштабирование TP=2 -> TP=4"},
+
+    {"name": "dp2tp2", "model": "Qwen3-32B", "precision": "bf16",
+     "model_dir": "/data/models/Qwen3-32B", "outdir": "/data/results/Qwen3-32B",
+     "tp": 2, "dp": 2, "max_model_len": 8192, "port": 8000,
+     "profiles": ["P1"], "concurrency": [1, 16, 64],
+     "comment": "две реплики по TP=2: 4 карты, сравнение с TP=4"}
+  ]
+}

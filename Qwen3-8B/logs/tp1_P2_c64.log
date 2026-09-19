@@ -1,0 +1,54 @@
+[W918 22:57:11.113901881 FunctionLoader.cpp:48] Warning: LD_PRELOAD detected, FunctionLoader prefers RTLD_DEFAULT for symbol resolution. (function operator())
+INFO 09-18 22:57:17 [__init__.py:44] Available plugins for group vllm.platform_plugins:
+INFO 09-18 22:57:17 [__init__.py:46] - ascend -> vllm_ascend:register
+INFO 09-18 22:57:17 [__init__.py:49] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-18 22:57:18 [__init__.py:238] Platform plugin ascend is activated
+INFO 09-18 22:57:18 [platform.py:62] Breakable cudagraph is force disabled on Ascend because DeepSeek V4 PIECEWISE cudagraph is not supported yet.
+2026-09-18 22:57:28,540 - 208181 - ServiceProfiler - INFO - VLLM_USE_V1 not set, auto-detected via vLLM 0.23.0: default 1
+ERROR 09-18 22:57:29 [config.py:29] Failed to import Triton kernels. Please make sure your triton version is compatible. Error: cannot import name 'constexpr_function' from 'triton.runtime.jit' (/data/venv-vllm/lib/python3.12/site-packages/triton/runtime/jit.py)
+INFO 09-18 22:57:29 [__init__.py:115] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+INFO 09-18 22:57:29 [__init__.py:115] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+Namespace(subparser='bench', bench_type='serve', dispatch_function=<function BenchmarkServingSubcommand.cmd at 0xfffb9fdb94e0>, trust_remote_code=False, seed=1234, num_prompts=128, dataset_name='random', no_stream=False, dataset_path=None, no_oversample=False, skip_chat_template=False, enable_multimodal_chat=False, disable_shuffle=False, custom_output_len=256, custom_ensure_client_side_data=False, spec_bench_output_len=256, spec_bench_category=None, sonnet_input_len=550, sonnet_output_len=150, sonnet_prefix_len=200, sharegpt_output_len=None, timed_trace_chunk_hash_size=16, timed_trace_sec_multiplier=1, timed_trace_label_timestamp='timestamp', timed_trace_label_input_length='input_length', timed_trace_label_output_length='output_length', timed_trace_label_hash_ids='hash_ids', blazedit_min_distance=0.0, blazedit_max_distance=1.0, asr_max_audio_len_sec=inf, asr_min_audio_len_sec=0.0, random_input_len=2048, random_output_len=128, random_range_ratio='0.0', random_prefix_len=0, random_batch_size=1, no_reranker=False, random_mm_base_items_per_request=1, random_mm_num_mm_items_range_ratio=0.0, random_mm_limit_mm_per_prompt={'image': 255, 'video': 1}, random_mm_bucket_config={(256, 256, 1): 0.5, (720, 1280, 1): 0.5, (720, 1280, 16): 0.0}, hf_subset=None, hf_split=None, hf_name=None, hf_output_len=None, prefix_repetition_prefix_len=256, prefix_repetition_suffix_len=256, prefix_repetition_num_prefixes=10, prefix_repetition_output_len=128, speed_bench_dataset_subset='qualitative', speed_bench_output_len=4096, speed_bench_category=None, label=None, backend='vllm', base_url=None, host='127.0.0.1', port=8000, endpoint='/v1/completions', header=None, max_concurrency=64, model='/data/models/Qwen3-8B', input_len=None, output_len=None, tokenizer=None, tokenizer_mode='auto', use_beam_search=False, logprobs=None, request_rate=inf, burstiness=1.0, disable_tqdm=False, num_warmups=0, profile=False, save_result=True, save_detailed=False, append_result=False, metadata=None, result_dir='/data/results/Qwen3-8B/logs', result_filename='tp1_P2_c64.json', ignore_eos=True, self_timed=None, percentile_metrics='ttft,tpot,itl,e2el', metric_percentiles='50,99', goodput=None, request_id_prefix='bench-02770a4f-', top_p=None, top_k=None, min_p=None, temperature=None, frequency_penalty=None, presence_penalty=None, repetition_penalty=None, served_model_name='bench', lora_modules=None, lora_assignment='random', ramp_up_strategy=None, ramp_up_start_rps=None, ramp_up_end_rps=None, ready_check_timeout_sec=0, chat_template_kwargs=None, extra_body=None, skip_tokenizer_init=False, insecure=False, plot_timeline=False, timeline_itl_thresholds='25,50', plot_dataset_stats=False)
+INFO 09-18 22:57:31 [utils.py:90] Sampling input_len from [2048, 2048] and output_len from [128, 128]
+WARNING: vllm bench serve no longer sets temperature==0 (greedy) in requests by default. The default will be determined on the server side and can be model/API specific. For the old behavior, include --temperature=0.
+Starting initial single prompt test run...
+Skipping endpoint ready check.
+Starting main benchmark run...
+Traffic request rate: inf
+Burstiness factor: 1.0 (Poisson process)
+Maximum request concurrency: 64
+  0%|          | 0/128 [00:00<?, ?it/s]  1%|          | 1/128 [00:06<13:51,  6.54s/it]  2%|▏         | 2/128 [00:07<06:19,  3.01s/it]  7%|▋         | 9/128 [00:08<01:06,  1.78it/s] 25%|██▌       | 32/128 [00:08<00:11,  8.63it/s] 37%|███▋      | 47/128 [00:08<00:05, 13.86it/s] 43%|████▎     | 55/128 [00:08<00:05, 13.95it/s] 48%|████▊     | 61/128 [00:09<00:05, 12.32it/s] 52%|█████▏    | 66/128 [00:17<00:23,  2.64it/s] 54%|█████▍    | 69/128 [00:17<00:19,  3.04it/s] 57%|█████▋    | 73/128 [00:17<00:14,  3.67it/s] 59%|█████▉    | 76/128 [00:18<00:11,  4.39it/s] 62%|██████▎   | 80/128 [00:18<00:08,  5.71it/s] 66%|██████▋   | 85/128 [00:18<00:05,  7.84it/s] 71%|███████   | 91/128 [00:18<00:03, 11.13it/s] 75%|███████▌  | 96/128 [00:18<00:02, 14.23it/s] 79%|███████▉  | 101/128 [00:18<00:01, 17.85it/s] 83%|████████▎ | 106/128 [00:18<00:00, 22.04it/s] 88%|████████▊ | 113/128 [00:18<00:00, 28.89it/s] 93%|█████████▎| 119/128 [00:18<00:00, 34.21it/s] 98%|█████████▊| 126/128 [00:19<00:00, 41.02it/s]100%|██████████| 128/128 [00:19<00:00,  6.70it/s]
+tip: install termplotlib and gnuplot to plot the metrics
+============ Serving Benchmark Result ============
+Successful requests:                     128       
+Failed requests:                         0         
+Maximum request concurrency:             64        
+Benchmark duration (s):                  19.11     
+Total input tokens:                      262144    
+Total generated tokens:                  16384     
+Request throughput (req/s):              6.70      
+Output token throughput (tok/s):         857.20    
+Peak output token throughput (tok/s):    1600.00   
+Peak concurrent requests:                111.00    
+Total token throughput (tok/s):          14572.46  
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1831.45   
+Median TTFT (ms):                        1143.48   
+P50 TTFT (ms):                           1143.48   
+P99 TTFT (ms):                           4556.78   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          58.24     
+Median TPOT (ms):                        57.45     
+P50 TPOT (ms):                           57.45     
+P99 TPOT (ms):                           80.69     
+---------------Inter-token Latency----------------
+Mean ITL (ms):                           58.24     
+Median ITL (ms):                         40.56     
+P50 ITL (ms):                            40.56     
+P99 ITL (ms):                            153.64    
+----------------End-to-end Latency----------------
+Mean E2EL (ms):                          9228.09   
+Median E2EL (ms):                        9507.28   
+P50 E2EL (ms):                           9507.28   
+P99 E2EL (ms):                           10617.08  
+==================================================
